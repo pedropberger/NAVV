@@ -18,3 +18,5 @@ df_filtrado <- df %>%
 
 # Exibindo o dataframe filtrado
 ft< flextable(df_filtrado)
+
+#test
