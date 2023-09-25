@@ -60,6 +60,16 @@ Os assuntos selecionados foram os seguintes:
 
 Refere-se ao número de autos com 1 (um) ou mais movimentos finalísticos (nos moldes do painel "Área-fim" https://gestao.mpes.mp.br) registrados nas comarcas do estado do Espírito Santo durante o período de janeiro a maio de 2023, categorizado por comarca e assunto.
 
+```{r consulta, include=FALSE}
+
+resultados <- read.csv('data/NAVV_pivot.csv')
+
+resultados <- resultados[, -which(names(resultados) == "X")]
+
+head(resultados)
+
+
+```
 
 
 ```{r tabela, results='asis', echo=FALSE}
@@ -67,9 +77,10 @@ Refere-se ao número de autos com 1 (um) ou mais movimentos finalísticos (nos m
 
 #library(htmltools)
 
-NAVV <- read_excel("data/NAVV.xlsx")
+#NAVV <- read_excel("data/NAVV.xlsx")
+#df<-NAVV
 
-df<-NAVV
+df<- resultados
 
 categorias <- unique(df$Orgao)
 
@@ -83,7 +94,7 @@ for (categoria in categorias) {
   # Filtrando o dataframe para a categoria atual e selecionando apenas as colunas desejadas
   df_filtrado <- df %>%
     filter(Orgao == categoria) %>%
-    select(Assunto_Gampes, Autos_Movimentados)
+    select(Assunto_Gampes, Janeiro, Fevereiro, Março, Abril, Maio, Junho, Julho, Agosto, Setembro, Outubro, Novembro, Dezembro)
   
   # Criando a tabela flexível
   ft <- flextable(df_filtrado) %>% 
