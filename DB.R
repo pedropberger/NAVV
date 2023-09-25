@@ -39,11 +39,72 @@ consulta_sql <- "/* Consulta que será utilizada para o relatório a partir de j
 )
 "
 
+consulta_sql_pivot <- "WITH dados AS (
+SELECT distinct o.nome as [Orgão], a.[Assunto Gampes], MONTH(a.Data) as Mes, a.idauto as IdAuto --,a.Data as Data, a.IdMovimentoAuto as IdMovimentoAuto
+  FROM [BI_2023].[dbo].[Tabela195] as a with(nolock)
+  INNER JOIN [MPES_Rel].[corporativo].[Orgao] as o with(nolock) ON a.IdOrgao = o.IdOrgao
+  WHERE Cod_Assunto IN ('3372', '3370', '3371', '10845', '10846', '5566', '3419', '3420', '3421', '11417', '3465', '11456', '9742','900169')
+  AND Data >= '2023-01-01' and Data < '2023-06-01'
+  AND a.Cod_Movimento NOT IN ('1000024','1000023','1000072','2000010','2000020','920005','2000026','2000028','2000029','2000031','920007','920024','920025','920040','920041','920042','920058','920039','920043','920057','920303','920309','920327','920331','920332','920337',
+'920344','920345','920346','920347','920350','920352','920353','920356','920357','920362','920364','920365','920366','920367','920371','920372','920377','920378','920385','920386','920387','920388','920393','920395','920401','920403','920407','920411','920413','920420',
+'920424','920425','920426','920428','920434','920436','920437','920438','920441','920443','920447','920452','920455','970003','970005','970006','970113','920302','920307','920308','920310','920311','920313','920315','920333','920336','920341','920343','920359','920363','920370','920373','920375','920380',
+'920382','920384','920399','920402','920404','920405','920406','920415','920421','920422','920427','920429','920430','920431','920432','920433','920435','920440','920442','920446','920453','970000','970002','970004','970107','970111'
+)
+  AND o.nome like '%promotoria%'
+)
+
+
+SELECT [Orgão]
+      ,[Assunto Gampes]
+      ,[1] as Janeiro
+      ,[2] as Fevereiro
+      ,[3] as [Março]
+      ,[4] as Abril
+      ,[5] as Maio
+      ,[6] as Junho
+      ,[7] as Jullho
+      ,[8] as Agosto
+      ,[9] as Setembro
+      ,[10] as Outubro
+      ,[11] as Novembro
+      ,[12] as Dezembro
+from (
+      select [Orgão]
+            ,[Assunto Gampes]
+            ,Mes
+            ,IdAuto
+      from dados 
+) as x
+
+ 
+
+PIVOT (
+	COUNT(IdAuto)
+	FOR Mes IN (
+	[1],
+    [2],
+    [3],
+    [4],
+    [5],
+    [6],
+    [7],
+    [8],
+    [9],
+    [10],
+    [11],
+    [12]
+	)) as tabela
+
+"
+
 # Execute a consulta
-resultados <- dbGetQuery(con, consulta_sql)
+resultados <- dbGetQuery(con, consulta_sql_pivot)
+print('dataframe created)')
 
 # Feche a conexão com o banco de dados
 dbDisconnect(con)
 
 # Verifica se está tudo correto
-head(resultados)
+write.csv(resultados, file = "data/NAVV_pivot.csv")
+
+print('data exported')

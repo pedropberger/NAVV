@@ -1,4 +1,7 @@
 print('começa aqui')
 
-#Importação dos dados (em produção puxar do banco)
+#Data import
 source("DB.R")
+
+#check
+head(resultados)
