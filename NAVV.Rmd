@@ -11,6 +11,7 @@ header-includes:
   - \pretitle{\begin{center}\vspace*{-3cm}
     \includegraphics[width=2in,height=2in]{Logo-MPES.png}\vspace{1cm}\LARGE\\}
   - \posttitle{\end{center}}
+latex_engine: xelatex
 ---
 
 ```{r setup, include=FALSE}
@@ -22,13 +23,6 @@ library(htmltools)
 library(readxl)
 
 use_df_printer()
-
-
-```
-
-```{r packages, include=FALSE}
-
-
 
 
 ```
@@ -60,39 +54,66 @@ Os assuntos selecionados foram os seguintes:
 
 Refere-se ao número de autos com 1 (um) ou mais movimentos finalísticos (nos moldes do painel "Área-fim" https://gestao.mpes.mp.br) registrados nas comarcas do estado do Espírito Santo durante o período de janeiro a maio de 2023, categorizado por comarca e assunto.
 
+```{r, include=FALSE}
+
+library(lubridate)
+
+# Obtenha a data atual
+data_atual <- Sys.Date()
+
+# Subtraia um mês
+mes_passado <- data_atual %m-% months(1)
+
+# Formate o mês passado em português do Brasil
+mes_passado_formatado <- format(mes_passado, format = "%B", locale = "pt_BR")
+
+```
+
+
 ```{r consulta, results='asis', echo=FALSE}
 
 resultados <- read.csv('data/NAVV_pivot.csv')
 
 resultados <- resultados[, -which(names(resultados) == "X")]
 
-head(resultados)
+df <-resultados
+
+categorias <- unique(df$Orgão)
 
 
-```
+# Lista para armazenar as tabelas flexíveis
+ft_list <- list()
 
 
-```{r tabela, results='asis', echo=FALSE}
-
-# Create a list of data frames (replace this with your actual data)
-data_frames_list <- list(
-  data.frame(ID = 1:3, Value = c(10, 20, 30)),
-  data.frame(ID = 4:6, Value = c(40, 50, 60)),
-  data.frame(ID = 7:9, Value = c(70, 80, 90))
-)
-
-# Iterate over each data frame in the list
-for (i in 1:length(data_frames_list)) {
-  current_table <- data_frames_list[[i]]
+# Loop para cada categoria
+for (categoria in categorias) {
+  # Filtrando o dataframe para a categoria atual e selecionando apenas as colunas desejadas
+  df_filtrado <- df %>%
+    filter(Orgão == categoria) %>%
+    select(Assunto.Gampes, Janeiro, mes_passado_formatado)
   
-  # Perform operations on the current_table
+  # Classificando as linhas por "Assunto_Gampes" em ordem alfabética
+  df_filtrado <- df_filtrado %>%
+    arrange(desc(Assunto.Gampes))
   
-  # Print or display the summary table
-  print(current_table)
+  
+  # Criando a tabela flexível
+  ft <- flextable(df_filtrado) %>% 
+    autofit()
+  
+  # Convertendo a tabela flexível para markdown usando kable
+  table_markdown <- knitr::kable(df_filtrado, format = "markdown")
+  
+  # Imprimindo a tabela markdown
+  cat("**",categoria,"**\n", sep="")
+  
+  print(table_markdown)
+  cat("\n")  # Pula uma linha entre as tabelas
 }
 
 
 ```
+
 
 ## Análise gráfica
 

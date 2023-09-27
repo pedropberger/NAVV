@@ -1,0 +1,8 @@
+install.packages('lubridate')
+install.packages('dplyr')
+install.packages('flextable')
+install.packages('htmltools')
+install.packages('readxl')
+install.packages('DBI')
+install.packages('odbc')
+install.packages('readxl')

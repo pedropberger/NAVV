@@ -16,18 +16,18 @@ SELECT distinct o.nome as [Orgão], a.[Assunto Gampes], MONTH(a.Data) as Mes, a.
 
 SELECT [Orgão]
       ,[Assunto Gampes]
-      ,[1] as Janeiro
-      ,[2] as Fevereiro
-      ,[3] as [Março]
-      ,[4] as Abril
-      ,[5] as Maio
-      ,[6] as Junho
-      ,[7] as Jullho
-      ,[8] as Agosto
-      ,[9] as Setembro
-      ,[10] as Outubro
-      ,[11] as Novembro
-      ,[12] as Dezembro
+      ,[1] as janeiro
+      ,[2] as fevereiro
+      ,[3] as [março]
+      ,[4] as abril
+      ,[5] as maio
+      ,[6] as junho
+      ,[7] as jullho
+      ,[8] as agosto
+      ,[9] as setembro
+      ,[10] as outubro
+      ,[11] as novembro
+      ,[12] as dezembro
 from (
       select [Orgão]
             ,[Assunto Gampes]
