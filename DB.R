@@ -1,4 +1,6 @@
 library(readxl)
+library(readr)
+
 #NAVV <- read_excel("data/NAVV.xlsx")
 #View(NAVV)
 
@@ -25,6 +27,8 @@ con <- dbConnect(odbc(),
 
 print('conection created')
 
+
+# I choose not use the query above, but is here for future testing
 consulta_sql <- "/* Consulta que será utilizada para o relatório a partir de julho de 2022 */
 
   SELECT o.nome as [Orgao], a.[Assunto Gampes], MONTH(a.Data) as Mes, a.Data as Data, a.idauto as IdAuto, a.IdMovimentoAuto as IdMovimentoAuto
@@ -38,6 +42,11 @@ consulta_sql <- "/* Consulta que será utilizada para o relatório a partir de j
 '920382','920384','920399','920402','920404','920405','920406','920415','920421','920422','920427','920429','920430','920431','920432','920433','920435','920440','920442','920446','920453','970000','970002','970004','970107','970111'
 )
 "
+
+#consulta_sql_teste <- read_file("consulta.sql")
+
+
+# Query used, same as from consulta.sql
 
 consulta_sql_pivot <- "WITH dados AS (
 SELECT distinct o.nome as [Orgão], a.[Assunto Gampes], MONTH(a.Data) as Mes, a.idauto as IdAuto --,a.Data as Data, a.IdMovimentoAuto as IdMovimentoAuto
@@ -56,18 +65,18 @@ SELECT distinct o.nome as [Orgão], a.[Assunto Gampes], MONTH(a.Data) as Mes, a.
 
 SELECT [Orgão]
       ,[Assunto Gampes]
-      ,[1] as Janeiro
-      ,[2] as Fevereiro
-      ,[3] as [Março]
-      ,[4] as Abril
-      ,[5] as Maio
-      ,[6] as Junho
-      ,[7] as Jullho
-      ,[8] as Agosto
-      ,[9] as Setembro
-      ,[10] as Outubro
-      ,[11] as Novembro
-      ,[12] as Dezembro
+      ,[1] as janeiro
+      ,[2] as fevereiro
+      ,[3] as [março]
+      ,[4] as abril
+      ,[5] as maio
+      ,[6] as junho
+      ,[7] as julho
+      ,[8] as agosto
+      ,[9] as setembro
+      ,[10] as outubro
+      ,[11] as novembro
+      ,[12] as dezembro
 from (
       select [Orgão]
             ,[Assunto Gampes]

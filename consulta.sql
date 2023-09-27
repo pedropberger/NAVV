@@ -1,4 +1,3 @@
--- query here
 with dados as(
 SELECT distinct o.nome as [Orgão], a.[Assunto Gampes], MONTH(a.Data) as Mes, a.idauto as IdAuto --,a.Data as Data, a.IdMovimentoAuto as IdMovimentoAuto
   FROM [BI_2023].[dbo].[Tabela195] as a with(nolock)
