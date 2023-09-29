@@ -52,7 +52,7 @@ Os assuntos selecionados foram os seguintes:
 
 ## Autos movimentados
 
-Refere-se ao número de autos com 1 (um) ou mais movimentos finalísticos (nos moldes do painel "Área-fim" https://gestao.mpes.mp.br) registrados nas comarcas do estado do Espírito Santo durante o período de janeiro a maio de 2023, categorizado por comarca e assunto.
+Refere-se ao número de autos com 1 (um) ou mais movimentos finalísticos (nos moldes do painel "Área-fim" https://gestao.mpes.mp.br) registrados nas comarcas do estado do Espírito Santo no mes anterior ao atual, categorizado por comarca e assunto.
 
 ```{r, include=FALSE}
 
