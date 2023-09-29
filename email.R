@@ -5,7 +5,7 @@ library(sendmailR)
 
 email <- "pberger@mpes.mp.br"
 #nome <- (as.character(df[linha, 5]))
-texto <- paste("Prezadas(os) ", ", ","\n","\n", "Segue em anexo o Relatório automatizado para o Núcleo de Apoio às Vítimas de Violência. Os dados do presente relatório juntamente a seu histórico podem ser acessados em tempo real no painel de BI https://indicadores  ","\n","\n","Respeitosamente","\n","\n","Equipe da Assessoria de Gestão Estratégica (AGE)", sep="")
+texto <- paste("Prezadas(os) ", ", ","\n","\n", "Segue em anexo o Relatório automatizado para o Núcleo de Apoio às Vítimas de Violência. Os dados do presente relatório juntamente a seu histórico podem ser acessados em tempo real no painel de BI http://indicadores.mpes.mp.br/relatorios/powerbi/AGE/NAVV  ","\n","\n","Respeitosamente","\n","\n","Equipe da Assessoria de Gestão Estratégica (AGE)", sep="")
 
 cat("processando email")
 
